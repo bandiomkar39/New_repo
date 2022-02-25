@@ -141,7 +141,7 @@
           prisub2id: "{{ prisub2_out.subnet.id }}"
           prisub3id: "{{ prisub3_out.subnet.id }}"
           IGWid: "{{ IGW_out.gateway_id }}"
-          PubsubRTid: "{{ PubsubRT_out.route_table.id }}"
+          PubsubRTid: "{{ PubsubRT.route_table.id }}"
           cacheable: yes
 
     - name: Create variables file for vpc output
