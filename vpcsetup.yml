@@ -116,29 +116,7 @@
             gateway_id: "{{ IGW_out.gateway_id }}"
       register: PubsubRT
 
-    - name: Create new nat gateway and allocate new EIP if a nat gateway does not yet exist in the subnet.
-      ec2_vpc_nat_gateway:
-        state: "{{state}}"
-        subnet_id: "{{ pubsub1_out.subnet.id }}"
-        wait: true
-        region: "{{region}}"
-        if_exist_do_not_create: true
-      register: NatGW_out
 
-    - name: Create private subnet route table
-      ec2_vpc_route_table:
-        vpc_id: "{{vpcout.vpc.id}}"
-        region: "{{region}}"
-        tags:
-          Name: Vprofile PriRT
-        subnets:
-          - "{{ prisub1_out.subnet.id }}"
-          - "{{ prisub2_out.subnet.id }}"
-          - "{{ prisub3_out.subnet.id }}"
-        routes:
-          - dest: 0.0.0.0/0
-            gateway_id: "{{ NatGW_out.nat_gateway_id }}"
-      register: PrisubRT
 
     - debug:
         var: "{{items}}"
@@ -150,7 +128,26 @@
         - prisub1_out.subnet.id
         - prisub2_out.subnet.id
         - prisub3_out.subnet.id
-        - igw_out.gateway_id
+        - IGW_out.gateway_id
         - PubsubRT.route_table.id
-        - NatGW_out.nat_gateway_id
-        - PrisubRT.route_table.id
+
+
+    -set_facts:
+          vpcid: "{{vpcout.vpc.id}}"
+          pubsub1id: "{{ pubsub1_out.subnet.id }}"
+          pubsub2id: "{{ pubsub2_out.subnet.id }}"
+          pubsub3id: "{{ pubsub3_out.subnet.id }}"
+          privsub1id: "{{ privsub1_out.subnet.id }}"
+          privsub2id: "{{ privsub2_out.subnet.id }}"
+          privsub3id: "{{ privsub3_out.subnet.id }}"
+          igwid: "{{ IGW_out.gateway_id }}"
+          pubRTid: "{{ PubsubRT_out.route_table.id }}"
+          cacheable: yes
+
+    - name: Create variables file for vpc output
+      copy:
+        content: "region: {{ region }}\nvpcid: {{ vpcout.vpc.id }}\npubsub1id: {{ pubsub1_out.subnet.id }}\npubsub2id: {{ pubsub2_out.subnet.id }}\npubsub3id: {{ pubsub3_out.subnet.id }}\nprivsub1id: {{ privsub1_out.subnet.id }}\nprivsub2id: {{ privsub2_out.subnet.id }}\nprivsub3id: {{ privsub3_out.subnet.id }}\nigwid: {{ IGW_out.gateway_id }}\npubRTid: {{ PubsubRT_out.route_table.id }}\n"
+        dest: vars/vpc-output_vars
+
+
+
