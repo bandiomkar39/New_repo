@@ -137,9 +137,9 @@
           pubsub1id: "{{ pubsub1_out.subnet.id }}"
           pubsub2id: "{{ pubsub2_out.subnet.id }}"
           pubsub3id: "{{ pubsub3_out.subnet.id }}"
-          prisub1id: "{{ privsub1_out.subnet.id }}"
-          prisub2id: "{{ privsub2_out.subnet.id }}"
-          prisub3id: "{{ privsub3_out.subnet.id }}"
+          prisub1id: "{{ prisub1_out.subnet.id }}"
+          prisub2id: "{{ prisub2_out.subnet.id }}"
+          prisub3id: "{{ prisub3_out.subnet.id }}"
           IGWid: "{{ IGW_out.gateway_id }}"
           PubsubRTid: "{{ PubsubRT_out.route_table.id }}"
           cacheable: yes
