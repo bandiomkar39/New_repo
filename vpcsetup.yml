@@ -146,7 +146,7 @@
 
     - name: Create variables file for vpc output
       copy:
-        content: "region: {{ region }}\nvpcid: {{ vpcout.vpc.id }}\npubsub1id: {{ pubsub1_out.subnet.id }}\npubsub2id: {{ pubsub2_out.subnet.id }}\npubsub3id: {{ pubsub3_out.subnet.id }}\nprisub1id: {{ prisub1_out.subnet.id }}\nprisub2id: {{ privub2_out.subnet.id }}\nprisub3id: {{ prisub3_out.subnet.id }}\nigwid: {{ IGW_out.gateway_id }}\npubRTid: {{ PubsubRT.route_table.id }}\n"
+        content: "region: {{ region }}\nvpcid: {{ vpcout.vpc.id }}\npubsub1id: {{ pubsub1_out.subnet.id }}\npubsub2id: {{ pubsub2_out.subnet.id }}\npubsub3id: {{ pubsub3_out.subnet.id }}\nprisub1id: {{ prisub1_out.subnet.id }}\nprisub2id: {{ prisub2_out.subnet.id }}\nprisub3id: {{ prisub3_out.subnet.id }}\nigwid: {{ IGW_out.gateway_id }}\npubRTid: {{ PubsubRT.route_table.id }}\n"
         dest: vars/vpc-output_vars
 
 
